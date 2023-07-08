@@ -11,7 +11,7 @@ from models.user import User
 
 
 @app_views.route('/places/<place_id>/reviews',
-                  methods=['GET'], strict_slashes=False)
+                 methods=['GET'], strict_slashes=False)
 def place_reviews(place_id):
     """Retrieves the list of all Review objects of a Place"""
     place = storage.all(Place)
@@ -36,7 +36,7 @@ def get_review(review_id):
 
 
 @app_views.route('/reviews/<review_id>',
-                  methods=['DELETE'], strict_slashes=False)
+                 methods=['DELETE'], strict_slashes=False)
 def delete_review(review_id):
     """Deletes a Review object"""
     review = storage.all(Review)
@@ -47,7 +47,9 @@ def delete_review(review_id):
     storage.save()
     return jsonify({}), 200
 
-@app_views.route('/places/<place_id>/reviews', methods=['POST'], strict_slashes=False)
+
+@app_views.route('/places/<place_id>/reviews',
+                 methods=['POST'], strict_slashes=False)
 def post_review(place_id):
     """Creates a Review object"""
     place = storage.all(Place)
@@ -59,7 +61,7 @@ def post_review(place_id):
         abort(400, 'Not a JSON')
     if 'user_id' not in data:
         abort(400, 'Missing user_id')
-    user = storage.all(User)   
+    user = storage.all(User)
     id = f"User.{data['user_id']}"
     if id not in user:
         abort(404)

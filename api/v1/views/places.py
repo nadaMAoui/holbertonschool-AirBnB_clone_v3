@@ -11,12 +11,12 @@ from models.user import User
 
 
 @app_views.route('/cities/<city_id>/places',
-                  methods=['GET'], strict_slashes=False)
+                 methods=['GET'], strict_slashes=False)
 def places(city_id):
     """Retrieves the list of all Place objects of a City"""
     city = storage.all(City)
     id = f"City.{city_id}"
-    if id  not in city:
+    if id not in city:
         abort(404)
     places = storage.all(Place).values()
     places_list = [p.to_dict() for p in places if p.city_id == city_id]
@@ -24,7 +24,7 @@ def places(city_id):
 
 
 @app_views.route('/places/<place_id>',
-                  methods=['GET'], strict_slashes=False)
+                 methods=['GET'], strict_slashes=False)
 def get_place(place_id):
     """Retrieves a Place object"""
     place = storage.all(Place)
@@ -34,7 +34,9 @@ def get_place(place_id):
     p = place[id]
     return jsonify(p.to_dict())
 
-@app_views.route('/places/<place_id>', methods=['DELETE'], strict_slashes=False)
+
+@app_views.route('/places/<place_id>',
+                 methods=['DELETE'], strict_slashes=False)
 def delete_place(place_id):
     """Deletes a Place object"""
     places = storage.all(Place)
@@ -48,7 +50,7 @@ def delete_place(place_id):
 
 
 @app_views.route('/cities/<city_id>/places',
-                  methods=['POST'], strict_slashes=False)
+                 methods=['POST'], strict_slashes=False)
 def post_place(city_id):
     """Creates a Place object"""
     city = storage.all(City)
@@ -67,7 +69,7 @@ def post_place(city_id):
     if 'name' not in data:
         abort(400, 'Missing name')
     place = Place(name=data['name'],
-                   user_id=data['user_id'], city_id=city_id)
+                  user_id=data['user_id'], city_id=city_id)
     for key, value in data.items():
         if key not in ['id', 'user_id', 'city_id', 'created_at', 'updated_at']:
             setattr(place, key, value)
@@ -77,7 +79,7 @@ def post_place(city_id):
 
 
 @app_views.route('/places/<place_id>',
-                  methods=['PUT'], strict_slashes=False)
+                 methods=['PUT'], strict_slashes=False)
 def put_place(place_id):
     """Updates a Place object"""
     place = storage.all(Place)
