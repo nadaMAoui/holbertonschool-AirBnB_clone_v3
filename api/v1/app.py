@@ -1,4 +1,5 @@
 #!/usr/bin/python3
+
 """
 This script creates a Flask application instance and configures it.
 
