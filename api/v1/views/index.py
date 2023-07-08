@@ -1,29 +1,24 @@
-#!/usr/bin/python3
-"""
-import app_views from api.v1.views
-create a route /status on the object
-app_views that returns a JSON: "status" ok
-"""
-from api.v1.views import app_views
-from flask import Flask, jsonify
+#!/usr/bin/python3xx
+'''api status'''
+import models
 from models import storage
-from models import amenity, city, place, review, state, user
+from models.base_model import BaseModel
+from flask import jsonify
+from api.v1.views import app_views
 
 
 @app_views.route('/status', strict_slashes=False)
-def api_status():
-    return jsonify({"status": "OK"})
+def returnstuff():
+    '''return stuff'''
+    return jsonify(status='OK')
 
 
 @app_views.route('/stats', strict_slashes=False)
-def count():
-    """Returns the number of each object by type"""
-    counts = {
-        'amenities': storage.count('Amenity'),
-        'cities': storage.count('City'),
-        'places': storage.count('Place'),
-        'reviews': storage.count('Review'),
-        'states': storage.count('State'),
-        'users': storage.count('User')
-    }
-    return jsonify(counts)
+def stuff():
+    '''JSON Responses'''
+    todos = {'states': State, 'users': User,
+            'amenities': Amenity, 'cities': City,
+            'places': Place, 'reviews': Review}
+    for key in todos:
+        todos[key] = storage.count(todos[key])
+    return jsonify(todos)
