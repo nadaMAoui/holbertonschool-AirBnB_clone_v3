@@ -1,0 +1,32 @@
+footer {
+
+    background-color: white; 
+    height: 60px; 
+    width: 100%;
+    border-top: 1px solid #CCCCCC;  
+    display:flex; 
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center;
+    bottom: 0;
+    
+}
+header #api_status{
+    float: right;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 50%;
+    right: 30px;
+    transform: translateY(-50%);
+    background-color: #cccccc;
+}
+
+header #api_status.available {
+    background-color: #ff545f;
+  }
+
