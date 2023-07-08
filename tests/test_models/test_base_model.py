@@ -139,4 +139,30 @@ class TestBaseModel(unittest.TestCase):
         self.assertCountEqual(d.keys(), expected_attrs)
         self.assertEqual(d['__class__'], 'BaseModel')
         self.assertEqual(d['name'], "Holberton")
-        self.assertEqual(d['my_number'], 89
+        self.assertEqual(d['my_number'], 89)
+
+    def test_to_dict_values(self):
+        """test that values in dict returned from to_dict are correct"""
+        t_format = "%Y-%m-%dT%H:%M:%S.%f"
+        bm = BaseModel()
+        new_d = bm.to_dict()
+        self.assertEqual(new_d["__class__"], "BaseModel")
+        self.assertEqual(type(new_d["created_at"]), str)
+        self.assertEqual(type(new_d["updated_at"]), str)
+        self.assertEqual(new_d["created_at"], bm.created_at.strftime(t_format))
+        self.assertEqual(new_d["updated_at"], bm.updated_at.strftime(t_format))
+
+    def test_str(self):
+        """Test that the str method has the correct output"""
+        inst = BaseModel()
+        string = "[BaseModel] ({}) {}".format(inst.id, inst.__dict__)
+        self.assertEqual(string, str(inst))
+
+    @mock.patch('models.storage')
+    def test_save(self, mock_storage):
+        """Test that the save method updates updated_at and calls save"""
+        inst = BaseModel()
+        prev_updated_at = inst.updated_at
+        inst.save()
+        self.assertNotEqual(prev_updated_at, inst.updated_at)
+        self.assertTrue(mock_storage.save.called)
