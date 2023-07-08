@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-create a new view for City
+create a new view for City updttt
 """
 from api.v1.views import app_views
 from flask import Flask, jsonify, abort, request
