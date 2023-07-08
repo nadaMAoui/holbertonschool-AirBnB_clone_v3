@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 ''' new view for State objects'''
-
 from flask import Flask
 from flask import Flask, abort
 from api.v1.views import app_views
